@@ -2,15 +2,10 @@ from openai import OpenAI
 from datasets import Dataset, load_from_disk, concatenate_datasets
 import os
 
-MODEL_NAME="meta-llama/Meta-Llama-3-8B-Instruct"
 
+ds = load_from_disk('toxsyn_processed_something')
 
-# MAX_TOKENS=1024
-# TEMPERATURE=0.7
-# TOP_P=0.8
-# TOP_K=20
-# BATCH_SIZE = 64
-
+MODEL_NAME="Qwen/Qwen3-14B-AWQ"
 
 MAX_TOKENS=2048
 TEMPERATURE=0.6
