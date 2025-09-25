@@ -1,0 +1,76 @@
+{
+  "builder_name": "parquet",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "tox_syn-pt",
+  "dataset_size": 13913932,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/ToxSyn/ToxSyn-PT@100947aeddb297428b37b7568804193e86afecc1/data/train-00000-of-00001.parquet": {
+      "num_bytes": 5893027,
+      "checksum": null
+    },
+    "hf://datasets/ToxSyn/ToxSyn-PT@100947aeddb297428b37b7568804193e86afecc1/data/test-00000-of-00001.parquet": {
+      "num_bytes": 647988,
+      "checksum": null
+    }
+  },
+  "download_size": 6541015,
+  "features": {
+    "text": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "prompt_strategy": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "is_toxic": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "group": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "scenario_theme": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "scenario": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "jb_strategy": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "jb_prompt": {
+      "dtype": "string",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 20454947,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 12539861,
+      "num_examples": 48066,
+      "dataset_name": "tox_syn-pt"
+    },
+    "test": {
+      "name": "test",
+      "num_bytes": 1374071,
+      "num_examples": 5208,
+      "dataset_name": "tox_syn-pt"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
