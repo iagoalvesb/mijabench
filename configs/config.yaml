@@ -4,31 +4,33 @@ languages:
 
 seed_datasets:
   toxigen:
-    dataset_name: toxigen
+    dataset_id: toxigen
     subset: train
     split: train
     path: toxigen/toxigen-data
     language: english
-    harmful_column_label: prompt_label
     text_column: generation
     group_column: group
-    samples_per_minority: 2000
+    harmful_column_label: prompt_label
     is_harmful_label_value: 1
+    samples_per_minority: 2
 
   toxsyn:
-    dataset_name: toxsyn
+    dataset_id: toxsyn
     subset: null
     split: train
     path: ToxSyn/ToxSyn-PT
     language: portuguese
-    harmful_column_label: is_toxic
     text_column: text
     group_column: group
-    samples_per_minority: 2000
+    harmful_column_label: is_toxic
     is_harmful_label_value: 1
+    samples_per_minority: 2
 
 
 paths:
+  hf_cache: cache/huggingface
+  
   seed_dataset: datasets/seed_dataset
   scenarios: datasets/scenarios
   mijabench: datasets/mijabench
@@ -40,12 +42,12 @@ paths:
 
 
 scenarios:
-  num_scenarios_per_category: 50
+  num_scenarios_per_category: 2
   
 
 mijabench:
   model_name: Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
-  api_url: api_url
+  api_url: http://localhost:8010/v1
   api_key: EMPTY
   max_tokens: 4096
   batch_size: 2048

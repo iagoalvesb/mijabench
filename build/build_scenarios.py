@@ -35,6 +35,7 @@ class ScenarioBuilder:
             batch_size=self.batch_size,
             remove_columns=prompt_dataset.column_names,
             load_from_cache_file=False,
+            new_fingerprint="scenario_dataset",
             desc='Building scenario dataset'
         )
 

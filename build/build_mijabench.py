@@ -6,7 +6,7 @@ from openai import OpenAI
 from transformers import AutoTokenizer
 
 
-class MijaBenchBuilder:
+class MiJaBenchBuilder:
     def __init__(self, config, jailbreak_strategies, prompt_templates, client=None, tokenizer=None, seed=42):
 
         self.config = config
@@ -60,8 +60,9 @@ class MijaBenchBuilder:
             self._generate_batch,
             batched=True,
             batch_size=self.batch_size,
-            load_from_cache_file=False
-            desc="Generating MijaBench prompts",
+            load_from_cache_file=False,
+            new_fingerprint="mijabench_dataset",
+            desc="Generating MiJaBench prompts",
         )
 
         len_pre_filter = len(mijabench_dataset)
@@ -70,12 +71,9 @@ class MijaBenchBuilder:
             self._is_valid_generation,
             batched=True,
             batch_size=self.batch_size,
+            load_from_cache_file=False,
+            new_fingerprint="mijabench_is_valid_generation",
             desc="Filtering invalid generations",
-        )
-
-        print(
-            f"Eliminated {len_pre_filter - len(mijabench_dataset)} "
-            "examples due to invalid generation."
         )
 
         mijabench_dataset.save_to_disk(self.paths_cfg["mijabench"])
@@ -118,7 +116,7 @@ class MijaBenchBuilder:
         scenarios = []
         strategy_names = []
 
-        batch_size = len(batch["text"])
+        batch_size = len(batch["seed_text"])
 
         for idx in range(batch_size):
             example = {
@@ -150,21 +148,17 @@ class MijaBenchBuilder:
         }
 
     def _build_prompt(self, example) -> Tuple[str, str, str, str]:
-        language = example["language"]
-        group = example["group"]
-        query = example["text"]
-
-        scenario_row = self._sample_scenario(language)
+        scenario_row = self._sample_scenario(example["language"])
         scenario_category = scenario_row["scenario_category"]
         scenario = scenario_row["scenario"]
 
-        strategy_name, strategy_text = self._sample_strategy_text(language)
+        strategy_name, strategy_text = self._sample_strategy_text(example["language"])
 
-        prompt_template = self._get_prompt_template(language)
+        prompt_template = self._get_prompt_template(example["language"])
 
         prompt = prompt_template.format(
-            group=group,
-            query=query,
+            group=example["group"],
+            seed_text=example["seed_text"],
             scenario=scenario,
             strategy_text=strategy_text,
         )
@@ -274,7 +268,7 @@ class MijaBenchBuilder:
 
 
 def build_mijabench(config, jailbreak_strategies, client=None, tokenizer=None, seed=42):
-    return MijaBenchBuilder(
+    return MiJaBenchBuilder(
         config=config,
         jailbreak_strategies=jailbreak_strategies,
         client=client,
