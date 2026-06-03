@@ -34,6 +34,8 @@ class ScenarioBuilder:
             batched=True,
             batch_size=self.batch_size,
             remove_columns=prompt_dataset.column_names,
+            load_from_cache_file=False,
+            desc='Building scenario dataset'
         )
 
         scenarios_dataset.save_to_disk(self.paths_cfg["scenarios"])

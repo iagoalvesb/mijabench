@@ -46,7 +46,7 @@ class SeedDatasetBuilder:
                 "is_harmful": example[harmful_column_label],
             },
             with_indices=True,
-            desc=f"Converting {dataset_name} to unified schema."
+            desc=f"Converting {dataset_name} to unified schema"
         )
 
     def _filter_harmful(self, dataset, dataset_cfg):

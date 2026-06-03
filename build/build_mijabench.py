@@ -60,8 +60,8 @@ class MijaBenchBuilder:
             self._generate_batch,
             batched=True,
             batch_size=self.batch_size,
-            desc="Generating MijaBench prompts",
             load_from_cache_file=False
+            desc="Generating MijaBench prompts",
         )
 
         len_pre_filter = len(mijabench_dataset)

@@ -45,13 +45,11 @@ scenarios:
 
 mijabench:
   model_name: Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
-  api_url: http://10.100.0.111:8010/v1
+  api_url: api_url
   api_key: EMPTY
-
   max_tokens: 4096
   batch_size: 2048
   num_shots: 2
-
   temperature: 0.7
   top_p: 0.9
   top_k: 20
