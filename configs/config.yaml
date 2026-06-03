@@ -1,0 +1,57 @@
+languages:
+  - english
+  - portuguese
+
+seed_datasets:
+  toxigen:
+    dataset_name: toxigen
+    subset: train
+    split: train
+    path: toxigen/toxigen-data
+    language: english
+    harmful_column_label: prompt_label
+    text_column: generation
+    group_column: group
+    samples_per_minority: 2000
+    is_harmful_label_value: 1
+
+  toxsyn:
+    dataset_name: toxsyn
+    subset: null
+    split: train
+    path: ToxSyn/ToxSyn-PT
+    language: portuguese
+    harmful_column_label: is_toxic
+    text_column: text
+    group_column: group
+    samples_per_minority: 2000
+    is_harmful_label_value: 1
+
+
+paths:
+  seed_dataset: datasets/seed_dataset
+  scenarios: datasets/scenarios
+  mijabench: datasets/mijabench
+  mijabench_align: datasets/mijabench_align
+
+  scenarios_yaml: configs/scenario_categories.yaml
+  prompts_yaml: configs/prompts.yaml
+  jailbreak_strategies_yaml: configs/jailbreak_strategies.yaml
+
+
+scenarios:
+  num_scenarios_per_category: 50
+  
+
+mijabench:
+  model_name: Qwen/Qwen3-235B-A22B-Instruct-2507-FP8
+  api_url: http://10.100.0.111:8010/v1
+  api_key: EMPTY
+
+  max_tokens: 4096
+  batch_size: 2048
+  num_shots: 2
+
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 20
