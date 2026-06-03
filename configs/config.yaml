@@ -1,3 +1,5 @@
+seed: 42
+
 languages:
   - english
   - portuguese
@@ -9,6 +11,7 @@ seed_datasets:
     split: train
     path: toxigen/toxigen-data
     language: english
+    sample_id_column: null
     text_column: generation
     group_column: group
     harmful_column_label: prompt_label
@@ -21,6 +24,7 @@ seed_datasets:
     split: train
     path: ToxSyn/ToxSyn-PT
     language: portuguese
+    sample_id_column: id
     text_column: text
     group_column: group
     harmful_column_label: is_toxic
@@ -43,7 +47,7 @@ paths:
 
 scenarios:
   num_scenarios_per_category: 2
-  
+
 
 mijabench:
   model_name: Qwen/Qwen3-235B-A22B-Instruct-2507-FP8

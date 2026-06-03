@@ -7,12 +7,12 @@ from transformers import AutoTokenizer
 
 
 class MiJaBenchBuilder:
-    def __init__(self, config, jailbreak_strategies, prompt_templates, client=None, tokenizer=None, seed=42):
+    def __init__(self, config, jailbreak_strategies, prompt_templates, client=None, tokenizer=None):
 
         self.config = config
         self.jailbreak_strategies = jailbreak_strategies
-        self.seed = seed
-        self.rng = random.Random(seed)
+        self.seed = config.get("seed", 42)
+        self.rng = random.Random(self.seed)
 
         self.paths_cfg = config["paths"]
         self.mijabench_cfg = config["mijabench"]
@@ -21,7 +21,7 @@ class MiJaBenchBuilder:
         self.model_name = self.mijabench_cfg["model_name"]
         self.max_tokens = self.mijabench_cfg["max_tokens"]
         self.batch_size = self.mijabench_cfg["batch_size"]
-        self.num_shots = self.mijabench_cfg.get("num_shots", 2)
+        self.num_shots = self.mijabench_cfg.get("num_shots", 0)
 
         self.temperature = self.mijabench_cfg.get("temperature")
         self.top_p = self.mijabench_cfg.get("top_p")
@@ -31,10 +31,7 @@ class MiJaBenchBuilder:
         self.prompt_templates = prompt_templates["mijabench_generation_prompt"]
 
         if self.prompt_templates is None:
-            raise ValueError(
-                "jailbreak_strategies must contain a top-level "
-                "'prompt_templates' section with one template per language."
-            )
+            raise ValueError("jailbreak_strategies must contain a top-level 'prompt_templates' section with one template per language.")
 
         self.client = client or OpenAI(
             base_url=self.mijabench_cfg.get("api_url"),
@@ -189,6 +186,8 @@ class MiJaBenchBuilder:
 
     def _format_shots(self, all_shots: List[Dict[str, Any]], language: str):
         num_shots = min(len(all_shots), self.num_shots)
+        if num_shots == 0:
+            return ""
         selected_shots = self.rng.sample(all_shots, num_shots)
 
         formatted_shots = []
@@ -252,6 +251,7 @@ class MiJaBenchBuilder:
         return [choice.text.strip() for choice in completion.choices]
 
     def _is_valid_generation(self, batch):
+        # samples that hit the maximum token limit are typically caused by generation loops, so we discard them
         tolerable_limit = self.max_tokens - 3
         texts = [str(text) if text is not None else "" for text in batch["jb_prompt"]]
 
@@ -265,13 +265,3 @@ class MiJaBenchBuilder:
         lengths = [len(input_ids) for input_ids in encodings["input_ids"]]
 
         return [length <= tolerable_limit for length in lengths]
-
-
-def build_mijabench(config, jailbreak_strategies, client=None, tokenizer=None, seed=42):
-    return MiJaBenchBuilder(
-        config=config,
-        jailbreak_strategies=jailbreak_strategies,
-        client=client,
-        tokenizer=tokenizer,
-        seed=seed,
-    ).build()
