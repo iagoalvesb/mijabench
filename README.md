@@ -2,7 +2,7 @@
 
 **Accepted to Findings of ACL 2026**
 
-[![Paper](https://img.shields.io/badge/Paper-arXiv-red)](https://arxiv.org/pdf/2601.04389v2)
+[![Paper](https://img.shields.io/badge/Paper-Findings_ACL-red)](https://aclanthology.org/2026.findings-acl.489/)
 [![Dataset](https://img.shields.io/badge/Dataset-MiJaBench-yellow)](https://huggingface.co/datasets/AKCIT/mijabench)
 [![Dataset](https://img.shields.io/badge/Dataset-MiJaBench--Align-orange)](https://huggingface.co/datasets/AKCIT/mijabench_align)
 
@@ -158,9 +158,6 @@ Then run:
 python create_mijabench.py
 ```
 
-
-
-
 ---
 
 ## Ethical Considerations
@@ -176,12 +173,18 @@ The benchmark should **not** be used to generate harmful content, target protect
 
 ---
 
-## Upcoming Releases
-
-The current release focuses on MiJaBench and MiJaBench-Align.
-
-The code, configurations, and training artifacts used for the DPO experiments reported in the paper are being cleaned, documented, and reorganized for public release. They will be added to this repository in a future update.
-
 ## Citation
+If you find this repository useful for your research or build upon our work, please cite:
 
-This work has been accepted to **Findings of ACL 2026**. We will update this section with the official BibTeX citation and ACL Anthology link as soon as the conference proceedings are released.
+```bibtex
+@inproceedings{brito2026safety,
+  title={Safety Is Not Universal: The Selective Safety Trap in LLM Alignment},
+  author={Brito, Iago Alves and Rios, Walcy and Dollis, Julia Soares and Silva, Diogo Fernandes Costa and Galv{\~a}o Filho, Arlindo Rodrigues},
+  booktitle={Findings of the Association for Computational Linguistics: ACL 2026},
+  pages={10044--10065},
+  year={2026}
+}
+```
+
+
+
